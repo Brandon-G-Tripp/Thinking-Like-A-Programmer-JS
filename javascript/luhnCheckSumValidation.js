@@ -54,21 +54,32 @@ function doubleDigitValue(digit){
 //    }
 // })
 
+// Full Problem Solution 
 
-
-rl.question('Enter a six-digit number: ', function(num){
+rl.question('Enter a number: ', function(num){
    console.log('input type', typeof(num));
    console.log("num length", num.length);
    let checksum = 0;
    // Splits String from input into array
    let numString = num.split('');
-   console.log('num split string', numString);
+   console.log(numString);
+   console.log('num split string length', numString.length);
    for(let digitPosition = 0; digitPosition < num.length; digitPosition++){
       let digitInt = parseInt(numString[digitPosition]);
-      if ((digitPosition + 1) % 2 === 0) {
-         checksum += digitInt; 
+      // Checking if input is even or odd length
+      if(numString.length % 2 === 0) {
+         // This checks if number is in the odd postion to double for an even length input
+         if ((digitPosition + 1) % 2 === 0) {
+            checksum += digitInt; 
+         } else {
+            checksum += doubleDigitValue(digitInt);
+         }
       } else {
-         checksum += doubleDigitValue(digitInt);
+         if ((digitPosition + 1) % 2 === 0) {
+            checksum += doubleDigitValue(digitInt);
+         } else {
+            checksum += digitInt; 
+         }
       }
    }
    process.stdout.write('Checksum is ' + checksum + '\n');
@@ -78,3 +89,4 @@ rl.question('Enter a six-digit number: ', function(num){
       process.stdout.write('Checksum is not divisible by 10. Invalid. \n');
    }
 })
+
